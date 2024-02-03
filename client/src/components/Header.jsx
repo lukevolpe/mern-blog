@@ -11,7 +11,7 @@ const Header = () => {
         to='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
       >
-        <span className='px-2 py-1 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg texh-white'>
+        <span className='px-2 py-1 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg text-white'>
           Fox
         </span>{' '}
         Blog
