@@ -2,7 +2,7 @@ import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (
@@ -26,7 +26,7 @@ export const signup = async (req, res) => {
 
   try {
     await newUser.save();
-    res.json({ message: 'User created successfully' });
+    res.json('User created successfully');
   } catch (error) {
     next(error);
   }
