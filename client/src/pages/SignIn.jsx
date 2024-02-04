@@ -53,7 +53,7 @@ const SignIn = () => {
             <span className='px-2 py-1 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg text-white'>
               Fox
             </span>{' '}
-            <span className='dark:text-black'>Blog</span>
+            <span className='dark:text-white'>Blog</span>
           </Link>
           <p className='text-sm mt-5'>
             This is a demo project. You can login with an email and password, or
@@ -64,7 +64,7 @@ const SignIn = () => {
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div>
-              <Label value='Your email' className='dark:text-black' />
+              <Label value='Your email' className='dark:text-white' />
               <TextInput
                 type='email'
                 placeholder='name@company.com'
@@ -73,7 +73,7 @@ const SignIn = () => {
               />
             </div>
             <div>
-              <Label value='Your password' className='dark:text-black' />
+              <Label value='Your password' className='dark:text-white' />
               <TextInput
                 type='password'
                 placeholder='Password'
