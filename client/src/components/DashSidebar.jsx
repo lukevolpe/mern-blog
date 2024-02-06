@@ -24,11 +24,16 @@ const DashSidebar = () => {
               icon={HiUser}
               label={'User'}
               labelColor='dark'
+              className='text-sm'
+              as='div'
             >
               Profile
             </Sidebar.Item>
           </Link>
-          <Sidebar.Item icon={HiArrowSmRight} className='cursor-pointer'>
+          <Sidebar.Item
+            icon={HiArrowSmRight}
+            className='cursor-pointer text-sm'
+          >
             Sign out
           </Sidebar.Item>
         </Sidebar.ItemGroup>
