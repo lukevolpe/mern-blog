@@ -18,8 +18,6 @@ const DashProfile = () => {
   const [fileUploadProgress, setFileUploadProgress] = useState(null);
   const [fileUploadProgressError, setFileUploadProgressError] = useState(null);
 
-  console.log(fileUploadProgress, fileUploadProgressError);
-
   const filePickerRef = useRef();
 
   const handleImageChange = (ev) => {
@@ -38,7 +36,7 @@ const DashProfile = () => {
 
   // Handles uploading the image to Firebase storage
   const uploadImage = async () => {
-    console.log('uploading image...');
+    setFileUploadProgressError(null);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imageFile.name;
     const storageRef = ref(storage, fileName);
@@ -51,7 +49,12 @@ const DashProfile = () => {
         setFileUploadProgress(progress.toFixed(0));
       },
       (error) => {
-        setFileUploadProgressError('Error uploading image (file must be < 2MB');
+        setFileUploadProgressError(
+          'Error uploading image (file must be less than 2MB'
+        );
+        setFileUploadProgress(null);
+        setImageFile(null);
+        setImageFileUrl(null);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
