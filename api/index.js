@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import 'dotenv/config';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
+import cookieParser from 'cookie-parser';
 
 // Connects to MongoDB and logs whether this has worked or if there is an error.
 mongoose
@@ -18,6 +19,9 @@ const app = express();
 
 // Allows JSON to be sent to the API
 app.use(express.json());
+
+// Allows the app to read cookies from the browser
+app.use(cookieParser);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
