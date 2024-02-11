@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 // Allows the app to read cookies from the browser
-app.use(cookieParser);
+app.use(cookieParser());
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
