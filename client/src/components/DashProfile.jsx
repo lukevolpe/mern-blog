@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Modal, TextInput } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   getDownloadURL,
   getStorage,
@@ -19,11 +20,10 @@ import {
   deleteUserFailure,
   signOutSuccess,
 } from '../redux/user/userSlice.js';
-import { useDispatch } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 const DashProfile = () => {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [fileUploadProgress, setFileUploadProgress] = useState(null);
@@ -234,9 +234,25 @@ const DashProfile = () => {
             onChange={handleChange}
           />
         </div>
-        <Button type='submit' gradientDuoTone='purpleToBlue' className='mt-5'>
-          Update
+        <Button
+          type='submit'
+          gradientDuoTone='purpleToBlue'
+          className='mt-5'
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? 'Loading...' : 'Update'}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={'/create-post'}>
+            <Button
+              type='button'
+              gradientDuoTone='purpleToPink'
+              className='w-full'
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className='text-red-500 flex justify-between mt-5'>
         <span
