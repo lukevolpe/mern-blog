@@ -16,6 +16,7 @@ mongoose
     console.log(err);
   });
 
+// Initialises the Express app
 const app = express();
 
 // Allows JSON to be sent to the API
@@ -28,6 +29,7 @@ app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
 
+// Routes for users, auth and posts
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
