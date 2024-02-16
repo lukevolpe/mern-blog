@@ -11,12 +11,16 @@ import {
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState([]);
+  const [publishError, setPublishError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleUploadImage = async () => {
     try {
@@ -55,6 +59,34 @@ const CreatePost = () => {
     }
   };
 
+  const handleChange = (ev) => {
+    setFormData({ ...formData, [ev.target.id]: ev.target.value });
+  };
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      const res = await fetch('/api/post/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      }
+      if (res.ok) {
+        setPublishError(null);
+        navigate(`/post/${data.slug}`);
+      }
+    } catch (error) {
+      setPublishError('Post publishing error');
+    }
+  };
+
   return (
     <div className='p-3 max-w-3xl mx-auto min-h-screen'>
       <h1 className='text-center text-3xl my-7 font-semibold'>Create Post</h1>
@@ -66,8 +98,9 @@ const CreatePost = () => {
             required
             id='title'
             className='flex-1'
+            onChange={handleChange}
           />
-          <Select>
+          <Select id='category' onChange={handleChange}>
             <option value='uncategorised'>Select a category</option>
             <option value='javascript'>Javascript</option>
             <option value='reactjs'>React JS</option>
@@ -112,10 +145,22 @@ const CreatePost = () => {
           placeholder='Write something...'
           className='h-72 mb-12'
           required
+          onChange={(value) => {
+            setFormData({ ...formData, content: value });
+          }}
         />
-        <Button type='submit' gradientDuoTone='purpleToPink'>
+        <Button
+          type='submit'
+          gradientDuoTone='purpleToPink'
+          onClick={handleSubmit}
+        >
           Publish Post
         </Button>
+        {publishError && (
+          <Alert className='mt-5' color='success'>
+            {publishError}
+          </Alert>
+        )}
       </form>
     </div>
   );
