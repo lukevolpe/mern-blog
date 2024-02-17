@@ -50,7 +50,6 @@ const DashSidebar = () => {
                 icon={HiUser}
                 label={currentUser.isAdmin ? 'Admin' : 'User'}
                 labelColor='dark'
-                className='text-sm'
                 as='div'
               >
                 Profile
@@ -69,8 +68,8 @@ const DashSidebar = () => {
             )}
             <Sidebar.Item
               icon={HiArrowSmRight}
-              className='cursor-pointer text-sm'
               onClick={() => setShowSignOutModal(true)}
+              className='cursor-pointer'
             >
               Sign out
             </Sidebar.Item>
