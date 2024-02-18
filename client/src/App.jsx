@@ -12,10 +12,12 @@ import CreatePost from './pages/CreatePost';
 import AdminPrivateRoute from './components/AdminPrivateRoute';
 import UpdatePost from './pages/UpdatePost';
 import Post from './pages/Post';
+import ScrollToTop from './components/ScrollToTop';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
