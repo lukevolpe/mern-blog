@@ -1,6 +1,7 @@
 import { Button, Modal, Table } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -66,7 +67,7 @@ const DashUsers = () => {
               </Table.HeadCell>
             </Table.Head>
             {users.map((user) => (
-              <Table.Body className='divide-y'>
+              <Table.Body className='divide-y' key={user._id}>
                 <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
                   <Table.Cell>
                     {new Date(user.createdAt).toLocaleString()}
@@ -80,7 +81,13 @@ const DashUsers = () => {
                   </Table.Cell>
                   <Table.Cell>{user.username}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{user.isAdmin}</Table.Cell>
+                  <Table.Cell>
+                    {user.isAdmin ? (
+                      <FaCheck className='text-green-500 mx-auto' />
+                    ) : (
+                      <FaTimes className='text-red-500 mx-auto' />
+                    )}
+                  </Table.Cell>
                   <Table.Cell>
                     <span
                       onClick={() => {
